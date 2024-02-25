@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import onChange from 'on-change';
+import i18nInstance from './locales/initInstance';
 
 // const form = document.querySelector('.rss-form');
 // const submit = document.querySelector('.div_btn-submit');
@@ -52,7 +53,7 @@ export const renderValidateErrors = (path, value) => {
       'text-success',
       'div_p_valid',
     ); // <p class="feedback m-0 position-absolute small text-success">RSS успешно загружен</p>
-    pValid.textContent = 'RSS успешно загружен';
+    pValid.textContent = i18nInstance.t('validate.successURL');
     formContainer.append(pValid);
   }
 };
