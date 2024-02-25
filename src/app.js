@@ -12,11 +12,7 @@ const app = () => {
     errors: { validateErrors: '', networkErrors: {} },
   };
 
-  const schema = yup
-    .string()
-    .url('Ресурс не содержит валидный RSS')
-    .notOneOf(state.rssLinks, 'RSS уже существует'); // в этот метож поступает массив из всех ссылок, которые были добавлены ранее: state.rssLinks
-  const validate = (link) => {
+  const validate = (link, schema) => {
     try {
       schema.validateSync(link, { abortEarly: false }); // если использовать validate, то это асинхронный метод, поэтому возвращает промис
       console.log('все ок');
@@ -28,18 +24,28 @@ const app = () => {
   };
 
   const watchedStateValidateErrors = getWatchedState(state, renderValidateErrors);
+  const inputUrl = document.querySelector('.form_input');
+  const form = document.querySelector('.rss-form');
 
-  const submit = document.querySelector('.div_btn-submit');
-  submit.addEventListener('submit', (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
-    // если не будет работать, то попробуй добавить условие: if(e.target.value.length > 0)
-    watchedStateValidateErrors.errors.validateErrors = validate(e.target.value); // если все ок, то в watchedState.errors.validateErrors будет лежать пустая строка
+    watchedStateValidateErrors.errors.validateErrors = '';
 
-    if (watchedStateValidateErrors.errors.validateErrors.isEmpty()) {
-      watchedStateValidateErrors.rssLinks.push(e.target.value);
+    // чтобы в notOneOf поступал не пустой массив, схема должна создаваться при сабмите
+    const schema = yup
+      .string()
+      .url('Ссылка должна быть валидным URL')
+      .notOneOf(state.rssLinks, 'RSS уже существует'); // в этот метод поступает массив из всех ссылок, которые были добавлены ранее: state.rssLinks
+
+    watchedStateValidateErrors.errors.validateErrors = validate(inputUrl.value, schema); // если все ок, то в watchedState.errors.validateErrors будет лежать пустая строка
+    // console.log(`Вывожу: ${state.errors.validateErrors}`);
+
+    if (state.errors.validateErrors.length === 0 && !state.rssLinks.includes(inputUrl.value)) {
+      // если нет ошибок и если массив rssLinks еще не содержит такую ссылку
+      watchedStateValidateErrors.rssLinks.push(inputUrl.value);
+      console.log(state.rssLinks);
     }
   });
-
   // validate('https://');
 };
 
