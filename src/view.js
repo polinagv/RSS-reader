@@ -1,13 +1,27 @@
 /* eslint-disable max-len */
+// const form = document.querySelector('.rss-form');
+// const submit = document.querySelector('.div_btn-submit');
+
 import onChange from 'on-change';
 import i18nInstance from './locales/initInstance';
 
-// const form = document.querySelector('.rss-form');
-// const submit = document.querySelector('.div_btn-submit');
 const formContainer = document.querySelector('[data-purpose="container"]');
 const inputUrl = document.querySelector('.form_input');
 
 export const getWatchedState = (state, render) => onChange(state, render);
+
+// export const renderFeeds = (path, value) => {
+// отрисовывает фиды (title and description) справа на странице
+// value это:
+// {
+//   id: 1,
+//   url: 'https://lorem-rss.hexlet.app/feed',
+//   title: 'ФОНТАНКА.ру: Новости Санкт-Петербурга',
+//   description: 'Санкт-Петербургская интернет-газета. Самые свежие городские новости.',
+// }
+// const feedsContainer = document.querySelector('.feeds');
+// h1 нужно добавить "Фиды"
+// };
 
 export const renderValidateErrors = (path, value) => {
   if (path === 'errors.validateErrors') {
