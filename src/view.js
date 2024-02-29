@@ -1,27 +1,82 @@
+/* eslint-disable no-console */
 /* eslint-disable max-len */
-// const form = document.querySelector('.rss-form');
-// const submit = document.querySelector('.div_btn-submit');
-
 import onChange from 'on-change';
 import i18nInstance from './locales/initInstance';
 
 const formContainer = document.querySelector('[data-purpose="container"]');
 const inputUrl = document.querySelector('.form_input');
+const feedsContainer = document.querySelector('.feeds');
+const postsContainer = document.querySelector('.posts');
 
 export const getWatchedState = (state, render) => onChange(state, render);
 
-// export const renderFeeds = (path, value) => {
-// отрисовывает фиды (title and description) справа на странице
-// value это:
-// {
-//   id: 1,
-//   url: 'https://lorem-rss.hexlet.app/feed',
-//   title: 'ФОНТАНКА.ру: Новости Санкт-Петербурга',
-//   description: 'Санкт-Петербургская интернет-газета. Самые свежие городские новости.',
-// }
-// const feedsContainer = document.querySelector('.feeds');
-// h1 нужно добавить "Фиды"
-// };
+export const renderPosts = (path, value) => {
+  // отрисовывает посты (title and description) справа на странице
+  if (postsContainer.children.length === 0) {
+    // если такого DOM элемента еще нет, то отрисовываем
+    postsContainer.insertAdjacentHTML(
+      'afterbegin',
+      `<div class="card border-0">
+        <div class="card-body">
+          <h2 class="card-title h4">Посты</h2>
+        </div>
+      </div>
+      <ul class="list-group border-0 rounded-0"></ul>`,
+    );
+  }
+
+  // value это массив со всеми постами
+  const ulPosts = postsContainer.querySelector('.list-group');
+  const { id, title, link } = value[value.length - 1]; // { id: 1, postId: 2, title: 'бла', link: 'https://бла.com' }
+  ulPosts.insertAdjacentHTML(
+    'beforeend',
+    `<li class="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0">
+        <a
+          href="${link}"
+          class="fw-bold"
+          data-id="${id}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >${title}</a>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          data-id="${id}"
+          data-bs-toggle="modal"
+          data-bs-target="#modal"
+        >
+          Просмотр
+        </button>
+    </li>`,
+  );
+};
+
+export const renderFeeds = (path, value) => {
+  // отрисовывает фиды (title and description) справа на странице
+  if (feedsContainer.children.length === 0) {
+    // если такого DOM элемента еще нет, то отрисовываем
+    feedsContainer.insertAdjacentHTML(
+      'afterbegin',
+      `<div class="card border-0">
+        <div class="card-body">
+          <h2 class="card-title h4">Фиды</h2>
+        </div>
+      </div>
+      <ul class="list-group border-0 rounded-0"></ul>`,
+    );
+  }
+
+  const { title, description } = value[value.length - 1]; // { id: 1, url: 'https://бла.com', title: 'бла', description: 'бла' }
+
+  const ulFeeds = feedsContainer.querySelector('.list-group');
+  ulFeeds.insertAdjacentHTML(
+    'afterbegin',
+    `<li class="list-group-item border-0 border-end-0">
+      <h3 class="h6 m-0">${title}</h3>
+      <p class="m-0 small text-black-50">${description}</p>
+    </li>`,
+  );
+};
 
 export const renderValidateErrors = (path, value) => {
   if (path === 'errors.validateErrors') {

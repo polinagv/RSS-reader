@@ -2,12 +2,10 @@
 /* eslint-disable no-console */
 
 const parseHTML = (responseData) => {
+  // нужно сделать, чтобы он проверял, что именно он парсит. это данные rss или нет? должны быть rss
   const parser = new DOMParser();
   const doc = parser.parseFromString(responseData, 'text/html'); // возвращается DOM
   return doc;
-
-  // console.log(doc.querySelector('title').textContent);
-  // возвращается строка 'ФОНТАНКА.ру: Новости Санкт-Петербурга', ее можно добавить в state.data.feeds[0].title
 };
 
 export default parseHTML;
