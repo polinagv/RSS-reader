@@ -11,7 +11,6 @@ const postsContainer = document.querySelector('.posts');
 export const getWatchedState = (state, render) => onChange(state, render);
 
 export const renderPosts = (path, value) => {
-  // отрисовывает посты (title and description) справа на странице
   if (postsContainer.children.length === 0) {
     // если такого DOM элемента еще нет, то отрисовываем
     postsContainer.insertAdjacentHTML(
@@ -27,32 +26,30 @@ export const renderPosts = (path, value) => {
 
   // value это массив со всеми постами
   const ulPosts = postsContainer.querySelector('.list-group');
-  const { id, title, link } = value[value.length - 1]; // { id: 1, postId: 2, title: 'бла', link: 'https://бла.com' }
+  const { postId, title, link } = value[value.length - 1]; // { feedId: 1, postId: 2, title: 'бла', link: 'https://бла.com' }
+
   ulPosts.insertAdjacentHTML(
     'beforeend',
     `<li class="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0">
         <a
           href="${link}"
           class="fw-bold"
-          data-id="${id}"
+          data-id="${postId}"
           target="_blank"
           rel="noopener noreferrer"
         >${title}</a>
-        <button
+        <button 
           type="button"
           class="btn btn-outline-primary btn-sm"
-          data-id="${id}"
+          data-id="${postId}"
           data-bs-toggle="modal"
           data-bs-target="#modal"
-        >
-          Просмотр
-        </button>
+        >Просмотр</button>
     </li>`,
   );
 };
 
 export const renderFeeds = (path, value) => {
-  // отрисовывает фиды (title and description) справа на странице
   if (feedsContainer.children.length === 0) {
     // если такого DOM элемента еще нет, то отрисовываем
     feedsContainer.insertAdjacentHTML(

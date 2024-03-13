@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 import _ from 'lodash';
 import getRSSFeed from './getRSSFeed';
-import parseHTML from '../parseHTML';
+import dataParse from '../dataParse';
 import { state, watchedStateDataPosts } from '../model';
 
 const getNewPosts = () => {
@@ -19,7 +19,7 @@ const getNewPosts = () => {
 
     getRSSFeed(link)
       .then((response) => {
-        const doc = parseHTML(response.data.contents);
+        const doc = dataParse(response.data.contents);
         const items = doc.querySelectorAll('item'); // // нужно отфильтровать большой массив items из всех последних постов и оставить только те, которых еще нет в state.data.posts
 
         const existedTitlesPosts = [];

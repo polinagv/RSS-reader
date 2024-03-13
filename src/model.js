@@ -18,11 +18,19 @@ export const state = {
     ],
     posts: [
       // {
-      //   id: 1,
+      //   feedId: 1,
       //   postId: 2,
       //   title: 'Горсуд оставил в силе законность сноса дома на улице Егорова',
       //   link: '',
+      //   description: descriptionPost,
       // },
+    ],
+  },
+  uiState: {
+    readabilityPosts: [
+      // { postId: 1, readability: 'read' },
+      // { postId: 2, readability: 'unread' },
+      // { postId: 3, readability: 'read' },
     ],
   },
   errors: { validateErrors: '', networkErrors: '' },
