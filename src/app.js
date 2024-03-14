@@ -46,7 +46,7 @@ const app = () => {
       getRSSFeed(url)
         .then((response) => {
           const doc = dataParse(response.data.contents);
-          console.log(doc);
+          // console.log(doc);
 
           if (!doc.querySelector('channel')) {
             // допустим, url проходит проверку, но ведь он не является rss. надо это проверить
