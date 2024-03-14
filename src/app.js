@@ -7,6 +7,8 @@ import {
   watchedStateValidateErrors,
   watchedStateDataFeeds,
   watchedStateDataPosts,
+  watchedStateReadabilityPosts,
+  watchedStateModalContent,
 } from './model';
 import i18nInstance from './locales/initInstance';
 import validate from './validate';
@@ -89,22 +91,20 @@ const app = () => {
 
     const li = button.parentNode;
     const a = li.querySelector('a');
-    // сделай MVC: раздели контроллеры и рендер модалки (нужно отсюда убрать изменение DOM)
-    a.classList.remove('fw-bold');
-    a.classList.add('fw-normal', 'link-secondary');
-    // <a href="http://example.com/test/1710334680" class="fw-normal link-secondary" data-id="2" target="_blank" rel="noopener noreferrer">блабла</a>
+    const postTitle = a.textContent;
+    const postLink = a.getAttribute('href');
+    // <a href="http://example.com/test/1710334680" class="fw-normal link-secondary" data-id="2" target="_blank" rel="noopener noreferrer">Lorem ipsum 2024-03-13T12:58:00Z</a>
 
-    const postTitle = a.textContent; // Lorem ipsum 2024-03-13T12:58:00Z
-    const postLink = a.getAttribute('href'); // http://example.com/test/1710334680
-
-    const modalTitle = modal.querySelector('.modal-title'); // обновляем контент модального окна
-    modalTitle.textContent = postTitle;
-
-    const modalButtonFullArticle = modal.querySelector('.full-article'); // нужно у этой кнопки поменять href; достать эту ссылку на пост нужно по event.relatedTarget, достав оттуда data-id (у кнопки и поста один и тот же id)
-    modalButtonFullArticle.setAttribute('href', `${postLink}`);
-
-    const modalBody = modal.querySelector('.modal-body');
-    modalBody.textContent = postDescription;
+    watchedStateReadabilityPosts.uiState.readabilityPosts.push({
+      postId: idButton,
+      readability: 'read',
+    }); // отрисовываем рендером прочитанные посты
+    watchedStateModalContent.uiState.modalContent.push({
+      postId: idButton,
+      modalTitle: postTitle,
+      modalBody: postDescription,
+      postLink,
+    }); // отрисовываем рендером контент модального окна
   });
 
   getNewPosts();

@@ -10,6 +10,28 @@ const postsContainer = document.querySelector('.posts');
 
 export const getWatchedState = (state, render) => onChange(state, render);
 
+export const renderModalContent = (path, value) => {
+  const { modalTitle, modalBody, postLink } = value[value.length - 1];
+
+  const modal = document.querySelector('#modal');
+  const modalButtonFullArticle = modal.querySelector('.full-article');
+
+  modalButtonFullArticle.setAttribute('href', `${postLink}`);
+  modal.querySelector('.modal-title').textContent = modalTitle;
+  modal.querySelector('.modal-body').textContent = modalBody;
+};
+
+export const renderReadabilityPosts = (path, value) => {
+  const { postId, readability } = value[value.length - 1];
+  const a = document.querySelector(`[data-id="${postId}"]`);
+
+  if (readability === 'read') {
+    a.classList.remove('fw-bold');
+    a.classList.add('fw-normal', 'link-secondary');
+    // <a href="http://example.com/test/1710334680" class="fw-normal link-secondary" data-id="2" target="_blank" rel="noopener noreferrer">блабла</a>
+  }
+};
+
 export const renderPosts = (path, value) => {
   if (postsContainer.children.length === 0) {
     // если такого DOM элемента еще нет, то отрисовываем
@@ -33,7 +55,7 @@ export const renderPosts = (path, value) => {
     `<li class="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0">
         <a
           href="${link}"
-          class="fw-bold"
+          class="fw-bold a-post"
           data-id="${postId}"
           target="_blank"
           rel="noopener noreferrer"

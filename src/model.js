@@ -1,6 +1,11 @@
 /* eslint-disable max-len */
 import {
-  getWatchedState, renderValidateErrors, renderFeeds, renderPosts,
+  getWatchedState,
+  renderValidateErrors,
+  renderFeeds,
+  renderPosts,
+  renderReadabilityPosts,
+  renderModalContent,
 } from './view';
 
 export const state = {
@@ -29,8 +34,10 @@ export const state = {
   uiState: {
     readabilityPosts: [
       // { postId: 1, readability: 'read' },
-      // { postId: 2, readability: 'unread' },
       // { postId: 3, readability: 'read' },
+    ],
+    modalContent: [
+      // { postId: 1, modalTitle: '', modalBody: '', postLink: '' }
     ],
   },
   errors: { validateErrors: '', networkErrors: '' },
@@ -39,5 +46,8 @@ export const state = {
 export const watchedStateValidateErrors = getWatchedState(state, renderValidateErrors);
 export const watchedStateDataFeeds = getWatchedState(state, renderFeeds);
 export const watchedStateDataPosts = getWatchedState(state, renderPosts);
+export const watchedStateReadabilityPosts = getWatchedState(state, renderReadabilityPosts);
+export const watchedStateModalContent = getWatchedState(state, renderModalContent);
+
 // export const watchedStateRequestState = getWatchedState(state, renderNewPosts);
 // const watchedStateNetworkErrors = getWatchedState(state, renderNetworkErrors);
