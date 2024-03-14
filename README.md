@@ -1,5 +1,5 @@
 ## RSS Reader
-Живое демо: https://frontend-project-11-q9z9b4zvf-polinas-projects-67a7df65.vercel.app/
+Живое демо: https://frontend-project-11-56zxz9pk3-polinas-projects-67a7df65.vercel.app/
 
 - **Описание проекта:** сервис для агрегации RSS-потоков, который позволяет удобно читать разнообразные источники (блоги).
 - **Стек:** JavaScript, HTML5, CSS3, Node.js, Axios, Github, Webpack, Bootstrap, Yup, i18next, on-change, lodash.
