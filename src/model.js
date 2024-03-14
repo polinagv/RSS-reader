@@ -1,11 +1,12 @@
 /* eslint-disable max-len */
 import {
   getWatchedState,
-  renderValidateErrors,
+  renderErrors,
   renderFeeds,
   renderPosts,
   renderReadabilityPosts,
   renderModalContent,
+  renderRequestState,
 } from './view';
 
 export const state = {
@@ -43,11 +44,9 @@ export const state = {
   errors: { validateErrors: '', networkErrors: '' },
 };
 
-export const watchedStateValidateErrors = getWatchedState(state, renderValidateErrors);
+export const watchedStateErrors = getWatchedState(state, renderErrors);
 export const watchedStateDataFeeds = getWatchedState(state, renderFeeds);
 export const watchedStateDataPosts = getWatchedState(state, renderPosts);
 export const watchedStateReadabilityPosts = getWatchedState(state, renderReadabilityPosts);
 export const watchedStateModalContent = getWatchedState(state, renderModalContent);
-
-// export const watchedStateRequestState = getWatchedState(state, renderNewPosts);
-// const watchedStateNetworkErrors = getWatchedState(state, renderNetworkErrors);
+export const watchedStateRequest = getWatchedState(state, renderRequestState);

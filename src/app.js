@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import _ from 'lodash';
 import {
   state,
-  watchedStateValidateErrors,
+  watchedStateErrors,
   watchedStateDataFeeds,
   watchedStateDataPosts,
   watchedStateReadabilityPosts,
@@ -22,7 +22,10 @@ const app = () => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    watchedStateValidateErrors.errors.validateErrors = '';
+    const url = inputUrl.value.trim();
+    // watchedStateRequest.requestState = 'pending'; // для того, чтобы не отображались ошибки под инпутом от момента сабмита до рендера новой ошибки
+
+    watchedStateErrors.errors.validateErrors = '';
 
     // чтобы в notOneOf поступал не пустой массив, схема должна создаваться при сабмите
     const schema = yup
@@ -30,18 +33,28 @@ const app = () => {
       .url(i18nInstance.t('validate.invalidURL'))
       .notOneOf(state.rssLinks, i18nInstance.t('validate.notUniqueURL'));
 
-    const url = inputUrl.value.trim();
+    if (url.length === 0) {
+      watchedStateErrors.errors.validateErrors = i18nInstance.t('validate.shouldNotBeEmpty');
+      return;
+    }
 
-    watchedStateValidateErrors.errors.validateErrors = validate(url, schema); // если все ок, то в watchedState.errors.validateErrors будет лежать пустая строка
+    watchedStateErrors.errors.validateErrors = validate(url, schema); // если все ок, то в watchedState.errors.validateErrors будет лежать пустая строка
 
     if (state.errors.validateErrors.length === 0 && !state.rssLinks.includes(url)) {
       // если нет ошибок и если массив rssLinks еще не содержит такую ссылку
 
-      watchedStateValidateErrors.rssLinks.push(url);
-
       getRSSFeed(url)
         .then((response) => {
           const doc = dataParse(response.data.contents);
+          console.log(doc);
+
+          if (!doc.querySelector('channel')) {
+            // допустим, url проходит проверку, но ведь он не является rss. надо это проверить
+            watchedStateErrors.errors.validateErrors = i18nInstance.t(
+              'validate.urlShouldContainRSS',
+            );
+            return;
+          }
 
           const titleFeed = doc.querySelector('title').textContent; // если в форму закинуть обычный url (не rss), то ломается вот здесь и переходит в catch
           const descriptionFeed = doc.querySelector('description').textContent;
@@ -69,9 +82,11 @@ const app = () => {
           });
         })
         .catch((error) => {
-          // watchedStateNetworkErrors.errors.networkErrors = error; // это почва на будущую обработку ошибок от сервера, не убирай
-          console.log(`Вывожу ошибку: ${error}`);
+          watchedStateErrors.errors.networkErrors = i18nInstance.t('validate.networkError');
+          console.log(`Вывожу ошибку сети: ${error}`);
         });
+
+      watchedStateErrors.rssLinks.push(url);
     }
   });
 

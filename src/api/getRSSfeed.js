@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-const getRSSFeed = (url) => axios.get(`https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`);
+const getRSSFeed = (url) => axios.get(`https://allorigins.hexlet.app/get?url=${encodeURIComponent(url)}&disableCache=true`);
 
 export default getRSSFeed;

@@ -10,6 +10,15 @@ const postsContainer = document.querySelector('.posts');
 
 export const getWatchedState = (state, render) => onChange(state, render);
 
+export const renderRequestState = (path, value) => {
+  if (value === 'pending') {
+    const pExample = document.querySelector('.div_p-example');
+    if (pExample.nextElementSibling) {
+      pExample.nextElementSibling.remove();
+    }
+  }
+};
+
 export const renderModalContent = (path, value) => {
   const { modalTitle, modalBody, postLink } = value[value.length - 1];
 
@@ -66,7 +75,7 @@ export const renderPosts = (path, value) => {
           data-id="${postId}"
           data-bs-toggle="modal"
           data-bs-target="#modal"
-        >Просмотр</button>
+        >${i18nInstance.t('validate.openPostPreview')}</button>
     </li>`,
   );
 };
@@ -97,8 +106,8 @@ export const renderFeeds = (path, value) => {
   );
 };
 
-export const renderValidateErrors = (path, value) => {
-  if (path === 'errors.validateErrors') {
+export const renderErrors = (path, value) => {
+  if (path === 'errors.validateErrors' || path === 'errors.networkErrors') {
     if (value !== '') {
       // если туда попала ошибка
       inputUrl.classList.add('is-invalid'); // красная рамка вокруг инпута
@@ -117,9 +126,11 @@ export const renderValidateErrors = (path, value) => {
         'text-danger',
         'div_p_invalid',
       ); // <p class="feedback m-0 position-absolute small text-danger">Ссылка должна быть валидным URL</p>
-      pInvalid.textContent = value;
+      pInvalid.textContent = value; // здесь будут и ошибки из yup, и ошибки сети
       formContainer.append(pInvalid);
     }
+
+    // вот сюда 'Ресурс не содержит валидный RSS'
   }
 
   if (path === 'rssLinks') {
