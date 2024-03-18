@@ -23,6 +23,7 @@ const app = () => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    console.log(e.target);
     const url = inputUrl.value.trim();
     // watchedStateRequest.requestState = 'pending'; // для того, чтобы не отображались ошибки под инпутом от момента сабмита до рендера новой ошибки
 
