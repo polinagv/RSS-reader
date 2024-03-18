@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/polinagv/frontend-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/polinagv/frontend-project-11/actions)",
-  "main": "./src/index.js",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm install -D webpack-cli"
