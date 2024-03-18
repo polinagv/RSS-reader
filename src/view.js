@@ -1,7 +1,8 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-console */
 /* eslint-disable max-len */
 import onChange from 'on-change';
-import i18nInstance from './locales/initInstance';
+import i18nInstance from './locales/initInstance.js';
 
 const formContainer = document.querySelector('[data-purpose="container"]');
 const inputUrl = document.querySelector('.form_input');

@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable max-len */
 import {
   getWatchedState,
@@ -7,7 +8,7 @@ import {
   renderReadabilityPosts,
   renderModalContent,
   renderRequestState,
-} from './view';
+} from './view.js';
 
 export const state = {
   requestState: 'fulfilled', // pending, fulfilled, rejected

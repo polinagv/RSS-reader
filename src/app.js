@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-console */
 /* eslint-disable max-len */
 import * as yup from 'yup';
@@ -9,12 +10,12 @@ import {
   watchedStateDataPosts,
   watchedStateReadabilityPosts,
   watchedStateModalContent,
-} from './model';
-import i18nInstance from './locales/initInstance';
-import validate from './validate';
-import dataParse from './dataParse';
-import getRSSFeed from './api/getRSSFeed';
-import getNewPosts from './api/getNewPosts';
+} from './model.js';
+import i18nInstance from './locales/initInstance.js';
+import validate from './validate.js';
+import dataParse from './dataParse.js';
+import getRSSFeed from './api/getRSSFeed.js';
+import getNewPosts from './api/getNewPosts.js';
 
 const app = () => {
   const inputUrl = document.querySelector('.form_input');

@@ -1,10 +1,11 @@
+/* eslint-disable import/extensions */
 /* eslint-disable padded-blocks */
 /* eslint-disable max-len */
 /* eslint-disable no-console */
 import _ from 'lodash';
-import getRSSFeed from './getRSSFeed';
-import dataParse from '../dataParse';
-import { state, watchedStateDataPosts } from '../model';
+import getRSSFeed from './getRSSFeed.js';
+import dataParse from '../dataParse.js';
+import { state, watchedStateDataPosts } from '../model.js';
 
 const getNewPosts = () => {
   state.rssLinks.forEach((link) => {
