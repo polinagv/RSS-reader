@@ -5,7 +5,7 @@
   "main": "dist/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "set NODE_ENV=production && npx webpack"
+    "webpack": "npm install -D webpack-cli"
   },
   "repository": {
     "type": "git",
