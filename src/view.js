@@ -65,7 +65,7 @@ export const renderPosts = (path, value) => {
     `<li class="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0">
         <a
           href="${link}"
-          class="fw-bold a-post"
+          class="fw-bold"
           data-id="${postId}"
           target="_blank"
           rel="noopener noreferrer"
